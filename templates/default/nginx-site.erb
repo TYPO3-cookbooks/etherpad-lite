@@ -1,0 +1,13 @@
+server {
+	listen       80;
+	server_name <%= node.etherpadlite.proxy.hostname %> <%= node.etherpadlite.proxy.alias_hostnames.join(" ") %>;
+
+	access_log  off;
+	error_log   /var/log/etherpad-lite/error.log;
+
+	location / {
+		proxy_pass             http://localhost:9001/;
+		proxy_set_header       Host $host;
+		proxy_buffering off;
+	}
+}

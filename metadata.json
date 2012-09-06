@@ -1,0 +1,34 @@
+{
+  "name": "etherpad-lite",
+  "description": "Installs/Configures etherpad-lite",
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES:\n\n= USAGE:\n\n",
+  "maintainer": "TYPO3 Association",
+  "maintainer_email": "steffen.gebert@typo3.org",
+  "license": "Apache 2.0",
+  "platforms": {
+  },
+  "dependencies": {
+    "git": ">= 0.0.0",
+    "build-essential": ">= 0.0.0",
+    "database": ">= 0.0.0",
+    "mysql": ">= 0.0.0",
+    "nginx": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.0.1"
+}
