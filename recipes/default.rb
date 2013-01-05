@@ -74,7 +74,7 @@ script "install_etherpad-lite" do
   interpreter "bash"
   user "etherpad-lite"
   code <<-EOH
-  git clone "git://github.com/Pita/etherpad-lite.git" /usr/local/etherpad-lite
+  git clone "git://github.com/ether/etherpad-lite.git" /usr/local/etherpad-lite
   EOH
   #action :nothing
   notifies :run, "script[install_dependencies]"
