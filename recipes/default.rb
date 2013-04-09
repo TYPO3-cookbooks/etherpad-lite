@@ -184,14 +184,34 @@ end
 
 # nginx reverse proxy
 if node[:etherpadlite][:proxy][:enable]
-	include_recipe "nginx"
-	
-    template "/etc/nginx/sites-available/#{node.etherpadlite.proxy.hostname}" do
-      source "nginx-site.erb"
-      notifies :restart, "service[nginx]"
+  include_recipe "nginx"
+
+  if node[:etherpadlite][:proxy][:ssl]
+
+    ssl_certfile_path = "/etc/ssl/certs/ssl-cert-snakeoil.pem"
+    ssl_keyfile_path  = "/etc/ssl/certs/ssl-cert-snakeoil.key"
+
+    # don't use snakeoil CA, if specified otherwise
+    if node[:etherpadlite][:proxy][:ssl_certificate]
+      ssl_certificate node[:etherpadlite][:proxy][:ssl_certificate] do
+        ca_bundle_combined true
+      end
+
+      ssl_certfile_path = node[:ssl_certificates][:path] + "/" + node[:etherpadlite][:proxy][:ssl_certificate] + ".crt"
+      ssl_keyfile_path  = node[:ssl_certificates][:path] + "/" + node[:etherpadlite][:proxy][:ssl_certificate] + ".key"
+    end
+  end
+
+  template "/etc/nginx/sites-available/#{node.etherpadlite.proxy.hostname}" do
+    source "nginx-site.erb"
+    notifies :restart, "service[nginx]"
+    variables(
+      :ssl_certfile => ssl_certfile_path,
+      :ssl_keyfile  => ssl_keyfile_path
+    )
     end
 
-    nginx_site "#{node.etherpadlite.proxy.hostname}" do
+    nginx_site node.etherpadlite.proxy.hostname do
       enable true
     end
 

@@ -1,13 +1,35 @@
 server {
-	listen       80;
-	server_name <%= node.etherpadlite.proxy.hostname %> <%= node.etherpadlite.proxy.alias_hostnames.join(" ") %>;
 
-	access_log  off;
-	error_log   /var/log/etherpad-lite/error.log;
+  server_name          <%= node.etherpadlite.proxy.hostname %> <%= node.etherpadlite.proxy.alias_hostnames.join(" ") %>;
 
-	location / {
-		proxy_pass             http://localhost:9001/;
-		proxy_set_header       Host $host;
-		proxy_buffering off;
-	}
+  access_log           off;
+  error_log            /var/log/etherpad-lite/error.log;
+
+  <% if node.etherpadlite.proxy.ssl %>
+  listen               443;
+  ssl                  on;
+  ssl_certificate      <%= @ssl_certfile %>;
+  ssl_certificate_key  <%= @ssl_keyfile %>;
+  ssl_session_timeout  5m;
+
+  ssl_protocols        SSLv2 SSLv3 TLSv1;
+  ssl_ciphers          ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
+  ssl_prefer_server_ciphers   on;
+  <% else %>
+    listen             80;
+  <% end %>
+
+  location / {
+    proxy_pass         http://localhost:9001/;
+    proxy_set_header   Host $host;
+    proxy_buffering    off;
+  }
 }
+
+<% if node.etherpadlite.proxy.ssl %>
+server {
+  listen               80;
+  server_name         <%= node.etherpadlite.proxy.hostname %> <%= node.etherpadlite.proxy.alias_hostnames.join(" ") %>;
+  rewrite     ^(.*)   https://<%= node.etherpadlite.proxy.hostname %>$1 permanent;
+}
+<% end %>

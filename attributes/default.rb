@@ -5,6 +5,8 @@
 default[:etherpadlite][:proxy][:enable] = true
 default[:etherpadlite][:proxy][:hostname] = fqdn
 default[:etherpadlite][:proxy][:alias_hostnames] = []
+default[:etherpadlite][:proxy][:ssl] = true
+default[:etherpadlite][:proxy][:ssl_certificate] = nil
 
 default[:etherpadlite][:listen][:ip] = "127.0.0.1"
 default[:etherpadlite][:listen][:port] = 9001
