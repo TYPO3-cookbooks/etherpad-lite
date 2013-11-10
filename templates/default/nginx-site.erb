@@ -6,7 +6,7 @@ server {
   error_log            /var/log/etherpad-lite/error.log;
 
   <% if node.etherpadlite.proxy.ssl %>
-  listen               443;
+  listen               [::]:443;
   ssl                  on;
   ssl_certificate      <%= @ssl_certfile %>;
   ssl_certificate_key  <%= @ssl_keyfile %>;
@@ -28,7 +28,7 @@ server {
 
 <% if node.etherpadlite.proxy.ssl %>
 server {
-  listen               80;
+  listen              [::]:80;
   server_name         <%= node.etherpadlite.proxy.hostname %> <%= node.etherpadlite.proxy.alias_hostnames.join(" ") %>;
   rewrite     ^(.*)   https://<%= node.etherpadlite.proxy.hostname %>$1 permanent;
 }
