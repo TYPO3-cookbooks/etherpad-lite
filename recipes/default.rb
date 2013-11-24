@@ -164,10 +164,9 @@ file "/usr/local/etherpad-lite/APIKEY.txt" do
 end
 
 # Install abiword package, if requested
-if node[:etherpadlite][:settings][:abiword]
-  package "abiword" do
-      action :upgrade
-  end
+package "abiword" do
+  action :upgrade
+  only_if { node[:etherpadlite][:settings][:abiword] }
 end
 
 
