@@ -148,6 +148,8 @@ rescue LoadError
   Chef::Log.info("Missing gem 'mysql'")
 end
 
+
+node.set_unless[:etherpadlite][:settings][:sessionkey] = secure_password
 template "/usr/local/etherpad-lite/settings.json" do
   source "settings.json.erb"
   owner "etherpad-lite"

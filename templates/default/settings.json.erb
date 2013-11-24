@@ -6,10 +6,35 @@
   Dropped off by chef
 */
 {
+  // Name your instance!
+  "title": "Etherpad",
+
+  // favicon default name
+  // alternatively, set up a fully specified Url to your own favicon
+  "favicon": "favicon.ico",
+
   //Ip and port which etherpad should bind at
   "ip": "<%= node.etherpadlite.listen.ip %>",
   "port" : <%= node.etherpadlite.listen.port %>,
-  
+
+  // Session Key, used for reconnecting user sessions
+  // Set this to a secure string at least 10 characters long.  Do not share this value.
+  "sessionKey" : "<%= node.etherpadlite.settings.sessionkey %>",
+
+  /*
+   // Node native SSL support
+   // this is disabled by default
+   //
+   // make sure to have the minimum and correct file access permissions set
+   // so that the Etherpad server can access them
+
+   "ssl" : {
+   "key"  : "/path-to-your/epl-server.key",
+   "cert" : "/path-to-your/epl-server.crt"
+   },
+
+   */
+
   //The Type of the database. You can choose between dirty, sqlite and mysql
   //You should use mysql or sqlite for anything else than testing or development
   "dbType" : "mysql",
@@ -49,6 +74,12 @@
   /* Require authorization by a module, or a user with is_admin set, see below. */
   "requireAuthorization": false,
 
+  /*when you use NginX or another proxy/ load-balancer set this to true*/
+  "trustProxy": false,
+
+  /* Privacy: disable IP logging */
+  "disableIPlogging": false,
+
   /* Users for basic authentication. is_admin = true gives access to /admin.
      If you do not uncomment this, /admin will not be available! */
   /*
@@ -63,6 +94,9 @@
     }
   },
   */
+
+  // restrict socket.io transport methods
+  "socketTransportProtocols" : ["xhr-polling", "jsonp-polling", "htmlfile"],
 
   /* The log level we are using, can be: DEBUG, INFO, WARN, ERROR */
   "loglevel": "<%= node.etherpadlite.settings.loglevel %>"
