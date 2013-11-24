@@ -3,7 +3,7 @@
 # Attributes:: default
 
 default[:etherpadlite][:proxy][:enable] = true
-default[:etherpadlite][:proxy][:hostname] = fqdn
+default[:etherpadlite][:proxy][:hostname] = node[:fqdn]
 default[:etherpadlite][:proxy][:alias_hostnames] = []
 default[:etherpadlite][:proxy][:ssl] = true
 default[:etherpadlite][:proxy][:ssl_certificate] = nil
