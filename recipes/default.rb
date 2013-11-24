@@ -108,7 +108,7 @@ include_recipe "mysql::server"
 ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
 node.set_unless[:etherpadlite][:database][:password] = secure_password
 
-mysql_connection_info = {:host => "localhost", :username => 'root', :password => node['mysql']['server_root_password']}
+mysql_connection_info = {:host => "localhost", :username => 'root', :password => node[:mysql][:server_root_password]}
 
 
 begin
@@ -117,7 +117,7 @@ begin
   end
   Gem.clear_paths  
   require 'mysql'
-  m=Mysql.new("localhost","root",node['mysql']['server_root_password']) 
+  m = Mysql.new("localhost", "root", node[:mysql][:server_root_password])
 
   if m.list_dbs.include?("etherpadlite") == false
     # create etherpad-lite database
@@ -204,7 +204,7 @@ if node[:etherpadlite][:proxy][:enable]
     end
   end
 
-  template "/etc/nginx/sites-available/#{node.etherpadlite.proxy.hostname}" do
+  template "/etc/nginx/sites-available/#{node[:etherpadlite][:proxy][:hostname]}" do
     source "nginx-site.erb"
     notifies :restart, "service[nginx]"
     variables(
@@ -213,7 +213,7 @@ if node[:etherpadlite][:proxy][:enable]
     )
     end
 
-    nginx_site node.etherpadlite.proxy.hostname do
+    nginx_site node[:etherpadlite][:proxy][:hostname] do
       enable true
     end
 
