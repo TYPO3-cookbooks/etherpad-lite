@@ -12,9 +12,11 @@ server {
   ssl_certificate_key  <%= @ssl_keyfile %>;
   ssl_session_timeout  5m;
 
-  ssl_protocols        SSLv2 SSLv3 TLSv1;
-  ssl_ciphers          ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
+  ssl_protocols        TLSv1 TLSv1.1 TLSv1.2; # not possible to do exclusive
+  ssl_ciphers          'EDH+CAMELLIA:EDH+aRSA:EECDH+aRSA+AESGCM:EECDH+aRSA+SHA384:EECDH+RSA+SHA256:EECDH:+CAMELLIA256:+AES256:+CAMELLIA128:+AES128:+SSLv3:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!DSS:!RC4:!SEED:!ECDSA:CAMELLIA256-SHA:AES256-SHA:CAMELLIA128-SHA:AES128-SHA';
+
   ssl_prefer_server_ciphers   on;
+
   <% else %>
     listen             80;
   <% end %>
