@@ -80,7 +80,7 @@ end
 
 # Install MySQL server
 
-include_recipe "database"
+include_recipe "database::mysql"
 include_recipe "mysql::server"
 
 # generate the password
@@ -90,41 +90,27 @@ node.set_unless[:etherpadlite][:database][:password] = secure_password
 mysql_connection_info = {:host => "localhost", :username => 'root', :password => node[:mysql][:server_root_password]}
 
 
-begin
-  gem_package "mysql" do
-    action :install
-  end
-  Gem.clear_paths  
-  require 'mysql'
-  m = Mysql.new("localhost", "root", node[:mysql][:server_root_password])
+mysql_database 'etherpadlite' do
+  connection mysql_connection_info
+  action :create
+  notifies :create, "template[/usr/local/etherpad-lite/settings.json]"
+end
 
-  if m.list_dbs.include?("etherpadlite") == false
-    # create etherpad-lite database
-    mysql_database 'etherpadlite' do
-      connection mysql_connection_info
-      action :create
-      notifies :create, "template[/usr/local/etherpad-lite/settings.json]"
-    end
+# create etherpad-lite user
+mysql_database_user 'etherpadlite' do
+  connection mysql_connection_info
+  password node[:etherpadlite][:database][:password]
+  action :create
+end
 
-    # create etherpad-lite user
-    mysql_database_user 'etherpadlite' do
-      connection mysql_connection_info
-      password node[:etherpadlite][:database][:password]
-      action :create
-    end
-
-    # Grant etherpad-lite
-    mysql_database_user 'etherpadlite' do
-      connection mysql_connection_info
-      password node[:etherpadlite][:database][:password]
-      database_name 'etherpadlite'
-      host 'localhost'
-      privileges ["ALL PRIVILEGES"]
-      action :grant
-    end
-  end
-rescue LoadError
-  Chef::Log.info("Missing gem 'mysql'")
+# Grant etherpad-lite
+mysql_database_user 'etherpadlite' do
+  connection mysql_connection_info
+  password node[:etherpadlite][:database][:password]
+  database_name 'etherpadlite'
+  host 'localhost'
+  privileges ["ALL PRIVILEGES"]
+  action :grant
 end
 
 
