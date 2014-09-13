@@ -32,18 +32,11 @@ end
 packages = [
   'curl',
   'python',
-  'libssl-dev'
+  'libssl-dev',
 ]
 
-case node[:platform]
-when "debian", "ubuntu"
-  packages.each do |pkg|
-    package pkg do
-      action :upgrade
-  end
-end
-when "centos"
-  log "No centos support yet"
+packages.each do |pkg|
+  package pkg
 end
 
 #################
