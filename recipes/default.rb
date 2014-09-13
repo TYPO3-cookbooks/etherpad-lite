@@ -52,8 +52,6 @@ end
 directory "/usr/local/etherpad-lite" do
   owner "etherpad-lite"
   group "etherpad-lite"
-  mode "755"
-  notifies :run, "script[install_etherpad-lite]"
 end
 
 # installation of etherpad-lite
