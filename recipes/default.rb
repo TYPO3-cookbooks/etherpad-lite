@@ -17,16 +17,9 @@
 # limitations under the License.
 #
 
-##################
-# nodejs & npm
-
-
 include_recipe "nodejs"
-
-include_recipe "npm"
-
-
-##################
+include_recipe "nodejs::npm"
+include_recipe "git"
 
 
 # Create etherpad-lite User
@@ -216,4 +209,4 @@ if node[:etherpadlite][:proxy][:enable]
       enable true
     end
 
-end
+include_recipe "etherpad-lite::plugins"

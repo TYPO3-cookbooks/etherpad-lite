@@ -17,23 +17,22 @@
 # limitations under the License.
 #
 
-node[:etherpadlite][:plugins].each do |plugin, version|
-  directory "/usr/local/etherpad-lite/node_modules/#{plugin}" do
-    owner "etherpad-lite"
-    group "etherpad-lite"
-    recursive true
-  end
 
-  npm_package plugin do
-    version version
-    path "/usr/local/etherpad-lite/node_modules/"
-    action :install_local
-    notifies :run, "execute[fix permissions]"
+node_modules_path = "/usr/local/etherpad-lite/node_modules/"
+
+directory node_modules_path do
+  user "etherpad-lite"
+  group "etherpad-lite"
+end
+
+node[:etherpadlite][:plugins].each do |plugin, version|
+
+  nodejs_npm plugin do
+    path node_modules_path
+    user "etherpad-lite"
+    group "etherpad-lite"
+    version version if version
     notifies :restart, "service[etherpad-lite]"
   end
 
-  execute "fix permissions" do
-    cwd "/usr/local/etherpad-lite/node_modules"
-    command "chown -R etherpad-lite:etherpad-lite #{plugin}/"
-  end
 end
