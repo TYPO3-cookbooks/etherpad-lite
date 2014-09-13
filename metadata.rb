@@ -4,17 +4,11 @@ maintainer_email "steffen.gebert@typo3.org"
 license          "Apache 2.0"
 description      "Installs/Configures etherpad-lite"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "0.1.4"
+version          "0.2.0"
 
-%w{
-build-essential
-database
-git
-mysql
-nodejs
-npm
-nginx
-ssl_certificates
-}.each do |cb|
-  depends cb
-end
+depends "build-essential", "~> 2.0.6"
+depends "database", "~> 2.3.0"
+depends "git", "~> 4.0.2"
+depends "mysql", "~> 5.5.2"
+depends "nodejs", "~> 2.1.0"
+depends "nginx", "~> 2.7.4"
