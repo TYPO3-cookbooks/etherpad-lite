@@ -55,29 +55,23 @@ directory "/usr/local/etherpad-lite" do
 end
 
 # installation of etherpad-lite
-script "install_etherpad-lite" do
-  interpreter "bash"
+git "etherpad-lite" do
   user "etherpad-lite"
-  code <<-EOH
-  git clone "git://github.com/ether/etherpad-lite.git" /usr/local/etherpad-lite
-  EOH
-  #action :nothing
-  notifies :run, "script[install_dependencies]"
+  group "etherpad-lite"
+  repository node[:etherpadlite][:git][:repository]
+  reference node[:etherpadlite][:git][:reference]
+  destination "/usr/local/etherpad-lite"
+  action :checkout
+  notifies :run, "execute[install_dependencies]"
   notifies :start, "service[etherpad-lite]"
-  not_if do
-    File.exists?("/usr/local/etherpad-lite/README.md")
-  end
 end
 
-script "install_dependencies" do
-  interpreter "bash"
-  user "root"
+execute "install_dependencies" do
+  command "bin/installDeps.sh"
   cwd "/usr/local/etherpad-lite"
+  user "etherpad-lite"
+  group "etherpad-lite"
   action :nothing
-  code <<-EOH
-  bin/installDeps.sh
-  chmod 755 /usr/local/lib/node*
-  EOH
 end
 
 
