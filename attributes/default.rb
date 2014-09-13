@@ -9,7 +9,8 @@ default[:etherpadlite][:proxy][:enable] = true
 default[:etherpadlite][:proxy][:hostname] = node[:fqdn]
 default[:etherpadlite][:proxy][:alias_hostnames] = []
 default[:etherpadlite][:proxy][:ssl] = true
-default[:etherpadlite][:proxy][:ssl_certificate] = nil
+default[:etherpadlite][:proxy][:ssl_cert_path] = nil
+default[:etherpadlite][:proxy][:ssl_key_path] = nil
 
 default[:etherpadlite][:listen][:ip] = "127.0.0.1"
 default[:etherpadlite][:listen][:port] = 9001
@@ -25,14 +26,6 @@ default[:etherpadlite][:settings][:loglevel] = "INFO"
 # either false or the path to abiword binary (e.g. "/usr/bin/abiword")
 default[:etherpadlite][:settings][:abiword] = "/usr/bin/abiword"
 
-default[:etherpadlite][:plugins] = {
-  'ep_headings' => '0.1.2'
-}
+default[:etherpadlite][:plugins] = {}
 
-# NodeJS
-default[:nodejs][:version] = "0.8.7"
-default[:nodejs][:install_method] = "source"
-default[:nodejs][:checksum] = "fa979488347ad08ea6e36d3fe9c543807cd6f84cad31b22bfc6179b54b1e9d04"
-
-# NodeJS Package Manager (NPM)
-default[:npm][:version] = "1.1.52"
+default[:nginx][:default_site_enabled] = false

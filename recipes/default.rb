@@ -152,20 +152,13 @@ end
 if node[:etherpadlite][:proxy][:enable]
   include_recipe "nginx"
 
+  nginx_options = {}
+
   if node[:etherpadlite][:proxy][:ssl]
+    package "ssl-cert"
 
-    ssl_certfile_path = "/etc/ssl/certs/ssl-cert-snakeoil.pem"
-    ssl_keyfile_path  = "/etc/ssl/certs/ssl-cert-snakeoil.key"
-
-    # don't use snakeoil CA, if specified otherwise
-    if node[:etherpadlite][:proxy][:ssl_certificate]
-      ssl_certificate node[:etherpadlite][:proxy][:ssl_certificate] do
-        ca_bundle_combined true
-      end
-
-      ssl_certfile_path = node[:ssl_certificates][:path] + "/" + node[:etherpadlite][:proxy][:ssl_certificate] + ".crt"
-      ssl_keyfile_path  = node[:ssl_certificates][:path] + "/" + node[:etherpadlite][:proxy][:ssl_certificate] + ".key"
-    end
+    ssl_certfile_path = node[:etherpadlite][:proxy][:ssl_cert_path] || "/etc/ssl/certs/ssl-cert-snakeoil.pem"
+    ssl_keyfile_path  = node[:etherpadlite][:proxy][:ssl_key_path]  ||"/etc/ssl/private/ssl-cert-snakeoil.key"
   end
 
   template "/etc/nginx/sites-available/#{node[:etherpadlite][:proxy][:hostname]}" do
@@ -177,8 +170,11 @@ if node[:etherpadlite][:proxy][:enable]
     )
     end
 
-    nginx_site node[:etherpadlite][:proxy][:hostname] do
-      enable true
-    end
+  nginx_site node[:etherpadlite][:proxy][:hostname] do
+    enable true
+  end
+
+end
+
 
 include_recipe "etherpad-lite::plugins"
