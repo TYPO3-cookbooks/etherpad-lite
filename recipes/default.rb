@@ -23,7 +23,10 @@ include_recipe "git"
 
 
 # Create etherpad-lite User
-user "etherpad-lite"
+user "etherpad-lite" do
+  shell "/bin/bash"
+end
+
 directory "/home/etherpad-lite" do
   owner "etherpad-lite"
   group"etherpad-lite"
