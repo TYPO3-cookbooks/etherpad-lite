@@ -29,3 +29,4 @@ default[:etherpadlite][:settings][:abiword] = "/usr/bin/abiword"
 default[:etherpadlite][:plugins] = {}
 
 default[:nginx][:default_site_enabled] = false
+default[:mysql][:bind_address] = "127.0.0.1"
