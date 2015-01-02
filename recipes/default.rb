@@ -65,7 +65,7 @@ git "etherpad-lite" do
   reference node[:etherpadlite][:git][:reference]
   destination "/usr/local/etherpad-lite"
   action :sync
-  notifies :run, "execute[install_dependencies]"
+  notifies :run, "execute[install_dependencies]", :immediately
   notifies :restart, "service[etherpad-lite]"
 end
 
