@@ -8,7 +8,7 @@ version          "0.2.5"
 
 depends "build-essential"
 depends "database", "~> 1.3.12"
-depends "git", "~> 0.9.0"
+depends "git"
 depends "mysql", "= 1.3.0"
 depends "nodejs", "= 2.2.0"
 depends "nginx", "= 1.6.0"
