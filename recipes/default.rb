@@ -71,6 +71,7 @@ end
 
 execute "install_dependencies" do
   command "bin/installDeps.sh"
+  env "npm_config_cache" => "/home/etherpad-lite/.npm"
   cwd "/usr/local/etherpad-lite"
   user "etherpad-lite"
   group "etherpad-lite"
