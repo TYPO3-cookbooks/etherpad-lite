@@ -71,9 +71,11 @@ end
 
 execute "install_dependencies" do
   command "bin/installDeps.sh"
+  env "npm_config_cache" => "/home/etherpad-lite/.npm"
   cwd "/usr/local/etherpad-lite"
   user "etherpad-lite"
   group "etherpad-lite"
+  retries 3
   action :nothing
 end
 
@@ -153,7 +155,7 @@ end
 
 # nginx reverse proxy
 if node[:etherpadlite][:proxy][:enable]
-  include_recipe "nginx"
+  include_recipe "chef_nginx"
 
   nginx_options = {}
 
@@ -173,7 +175,7 @@ if node[:etherpadlite][:proxy][:enable]
     )
     end
 
-  nginx_site node[:etherpadlite][:proxy][:hostname] do
+  chef_nginx_site node[:etherpadlite][:proxy][:hostname] do
     enable true
   end
 

@@ -3,7 +3,7 @@
 # Attributes:: default
 
 default[:etherpadlite][:git][:repository] = "https://github.com/ether/etherpad-lite.git"
-default[:etherpadlite][:git][:reference] = "1.4.1"
+default[:etherpadlite][:git][:reference] = "1.6.0"
 
 default[:etherpadlite][:proxy][:enable] = true
 default[:etherpadlite][:proxy][:hostname] = node[:fqdn]
