@@ -155,7 +155,7 @@ end
 
 # nginx reverse proxy
 if node[:etherpadlite][:proxy][:enable]
-  include_recipe "nginx"
+  include_recipe "chef_nginx"
 
   nginx_options = {}
 
@@ -175,7 +175,7 @@ if node[:etherpadlite][:proxy][:enable]
     )
     end
 
-  nginx_site node[:etherpadlite][:proxy][:hostname] do
+  chef_nginx_site node[:etherpadlite][:proxy][:hostname] do
     enable true
   end
 
