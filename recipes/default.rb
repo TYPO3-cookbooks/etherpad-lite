@@ -75,6 +75,7 @@ execute "install_dependencies" do
   cwd "/usr/local/etherpad-lite"
   user "etherpad-lite"
   group "etherpad-lite"
+  retries 3
   action :nothing
 end
 
