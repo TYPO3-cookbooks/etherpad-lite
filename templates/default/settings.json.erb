@@ -10,16 +10,16 @@
   // favicon default name
   // alternatively, set up a fully specified Url to your own favicon
   "favicon": "favicon.ico",
-  
+
   //IP and port which etherpad should bind at
-  "ip": "<%= node.etherpadlite.listen.ip %>",
-  "port" : <%= node.etherpadlite.listen.port %>,
+  "ip": "<%= node['etherpadlite']['listen']['ip'] %>",
+  "port" : <%= node['etherpadlite']['listen']['port'] %>,
 
   // Session Key, used for reconnecting user sessions
   // Set this to a secure string at least 10 characters long.  Do not share this value.
-  "sessionKey" : "<%= node.etherpadlite.settings.sessionkey %>",
+  "sessionKey" : "<%= node['etherpadlite']['settings']['sessionkey'] %>",
 
-  /*  
+  /*
   // Node native SSL support
   // this is disabled by default
   //
@@ -38,25 +38,25 @@
   "dbType" : "mysql",
   //the database specific settings
   "dbSettings" : {
-    "user"    : "<%= node.etherpadlite.database.user %>",
-    "host"    : "<%= node.etherpadlite.database.host %>",
-    "password": "<%= node.etherpadlite.database.password %>",
-    "database": "<%= node.etherpadlite.database.name %>"
+    "user"    : "<%= node['etherpadlite']['database']['user'] %>",
+    "host"    : "<%= node['etherpadlite']['database']['host'] %>",
+    "password": "<%= node['etherpadlite']['database']['password'] %>",
+    "database": "<%= node['etherpadlite']['database']['name'] %>"
                  },
-                 
+
   /* An Example of MySQL Configuration
    "dbType" : "mysql",
    "dbSettings" : {
-                    "user"    : "root", 
-                    "host"    : "localhost", 
-                    "password": "", 
+                    "user"    : "root",
+                    "host"    : "localhost",
+                    "password": "",
                     "database": "store"
                   },
   */
-  
+
   //the default text of a pad
-  "defaultPadText" : "<%= node.etherpadlite.settings.defaultPadText %>",
-  
+  "defaultPadText" : "<%= node['etherpadlite']['settings']['defaultPadText'] %>",
+
   /* Users must have a session to access pads. This effectively allows only group pads to be accessed. */
   "requireSession" : false,
 
@@ -65,32 +65,32 @@
 
   /* Users, who have a valid session, automatically get granted access to password protected pads */
   "sessionNoPassword" : false,
-  
-  /* if true, all css & js will be minified before sending to the client. This will improve the loading performance massivly, 
+
+  /* if true, all css & js will be minified before sending to the client. This will improve the loading performance massivly,
      but makes it impossible to debug the javascript/css */
   "minify" : true,
 
   /* How long may clients use served javascript code (in seconds)? Without versioning this
      may cause problems during deployment. Set to 0 to disable caching */
   "maxAge" : 21600, // 60 * 60 * 6 = 6 hours
-  
+
   /* This is the path to the Abiword executable. Setting it to null, disables abiword.
-     Abiword is needed to advanced import/export features of pads*/  
+     Abiword is needed to advanced import/export features of pads*/
   "abiword" : "/usr/bin/abiword",
- 
+
   /* This setting is used if you require authentication of all users.
      Note: /admin always requires authentication. */
   "requireAuthentication": false,
 
   /* Require authorization by a module, or a user with is_admin set, see below. */
   "requireAuthorization": false,
-  
+
   /*when you use NginX or another proxy/ load-balancer set this to true*/
   "trustProxy": false,
-  
+
   /* Privacy: disable IP logging */
-  "disableIPlogging": false,  
-  
+  "disableIPlogging": false,
+
   /* Users for basic authentication. is_admin = true gives access to /admin.
      If you do not uncomment this, /admin will not be available! */
   /*
@@ -108,7 +108,7 @@
 
   // restrict socket.io transport methods
   "socketTransportProtocols" : ["xhr-polling", "jsonp-polling", "htmlfile"],
-  
+
   /* The toolbar buttons configuration.
   "toolbar": {
     "left": [
@@ -129,7 +129,7 @@
   */
 
   /* The log level we are using, can be: DEBUG, INFO, WARN, ERROR */
-  "loglevel": "<%= node.etherpadlite.settings.loglevel %>",
+  "loglevel": "<%= node['etherpadlite']['settings']['loglevel'] %>",
 
   //Logging configuration. See log4js documentation for further information
   // https://github.com/nomiddlename/log4js-node

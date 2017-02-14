@@ -1,6 +1,6 @@
 server {
 
-  server_name          <%= node.etherpadlite.proxy.hostname %> <%= node.etherpadlite.proxy.alias_hostnames.join(" ") %>;
+  server_name          <%= node['etherpadlite']['proxy']['hostname'] %> <%= node['etherpadlite']['proxy']['alias_hostnames'].join(' ') %>;
 
   access_log           off;
   error_log            /var/log/etherpad-lite/error.log;
