@@ -161,7 +161,7 @@ if node['etherpadlite']['proxy']['enable']
     ssl_keyfile_path  = node['etherpadlite']['proxy']['ssl_key_path']  ||'/etc/ssl/private/ssl-cert-snakeoil.key'
   end
 
-  template '/etc/nginx/sites-available/#{node['etherpadlite']['proxy']['hostname']}' do
+  template "/etc/nginx/sites-available/#{node['etherpadlite']['proxy']['hostname']}" do
     source 'nginx-site.erb'
     notifies :restart, 'service[nginx]'
     variables(
