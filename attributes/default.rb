@@ -8,9 +8,6 @@ default[:etherpadlite][:git][:reference] = "1.6.0"
 default[:etherpadlite][:proxy][:enable] = true
 default[:etherpadlite][:proxy][:hostname] = node[:fqdn]
 default[:etherpadlite][:proxy][:alias_hostnames] = []
-default[:etherpadlite][:proxy][:ssl] = true
-default[:etherpadlite][:proxy][:ssl_cert_path] = nil
-default[:etherpadlite][:proxy][:ssl_key_path] = nil
 
 default[:etherpadlite][:listen][:ip] = "127.0.0.1"
 default[:etherpadlite][:listen][:port] = 9001

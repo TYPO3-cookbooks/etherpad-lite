@@ -6,13 +6,19 @@ provisioner:
   name: chef_zero
 
 platforms:
-  - name: debian-7.10
+  - name: debian-8.6
+
+verifier:
+ name: inspec
 
 suites:
   - name: default
     run_list:
       - recipe[etherpad-lite::default]
     attributes:
+      etherpadlite:
+        proxy:
+          hostname: etherpad.vagrant
     driver_config:
       network:
       - ["private_network", {ip: "192.168.33.35"}]

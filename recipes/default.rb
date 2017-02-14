@@ -139,13 +139,18 @@ package "abiword" do
   only_if { node[:etherpadlite][:settings][:abiword] }
 end
 
-
-# Install Init script
-template "/etc/init.d/etherpad-lite" do
-  source "etherpad-lite.init.erb"
-  owner "root"
-  group "root"
-  mode "754"
+systemd_service 'etherpad-lite' do
+  description 'Etherpad-lite, the collaborative editor.'
+  after %w( network.target syslog.target )
+  install do
+    wanted_by 'network.target'
+  end
+  service do
+    type 'simple'
+    user 'etherpad-lite'
+    working_directory '/usr/local/etherpad-lite'
+    exec_start '/usr/local/etherpad-lite/bin/run.sh'
+  end
 end
 
 service "etherpad-lite" do
@@ -156,8 +161,6 @@ end
 # nginx reverse proxy
 if node[:etherpadlite][:proxy][:enable]
   include_recipe "chef_nginx"
-
-  nginx_options = {}
 
   if node[:etherpadlite][:proxy][:ssl]
     package "ssl-cert"
