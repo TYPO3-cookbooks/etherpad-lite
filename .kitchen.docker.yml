@@ -1,0 +1,6 @@
+driver:
+  name: docker
+  use_sudo: false
+  run_command: /bin/systemd
+  provision_command:
+    - apt-get install -y net-tools cron
