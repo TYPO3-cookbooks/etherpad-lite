@@ -2,6 +2,9 @@ control 'etherpad-1' do
   title 'Etherpad-lite Setup'
   desc 'Check that etherpad is installed and running'
 
+  # takes a while :-(
+  sleep 5
+
   describe port(9001) do
     it { should be_listening }
     its('protocols') { should include 'tcp' }
