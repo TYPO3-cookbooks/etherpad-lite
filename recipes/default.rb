@@ -133,7 +133,7 @@ end
 
 systemd_service 'etherpad-lite' do
   description 'Etherpad-lite, the collaborative editor.'
-  after %w( network.target syslog.target )
+  after %w( network.target syslog.target mysql.service )
   install do
     wanted_by 'network.target'
   end
